@@ -7,25 +7,25 @@
  * 全て削除する。一番大きい数の平方根を超えるまで、この作業を繰り返す。
  *
  * @author k2works
- * @version 0.2.1
+ * @version 0.2.2
  */
 public class PrimeGenerator {
     private static boolean[] f;
-    private static int[] primes;
+    private static int[] result;
 
     public static int[] generatePrimes(int maxValue) {
         if (maxValue < 2)
             return new int[0];
         else
         {
-            initializeSieve(maxValue);
-            sieve();
-            loadPrimes();
-            return primes; // 素数を返す
+            initializeArrayOfIntegers(maxValue);
+            crossOutMultiples();
+            putUncrossedIntegersIntoResult();
+            return result; // 素数を返す
         }
     }
 
-    private static void loadPrimes()
+    private static void putUncrossedIntegersIntoResult()
     {
         int i;
         int j;
@@ -37,16 +37,16 @@ public class PrimeGenerator {
                 count++; // カウントアップ
         }
 
-        primes = new int[count];
+        result = new int[count];
 
         // 素数の抜き出し
         for (i = 0, j = 0; i < f.length; i++) {
             if (f[i]) // 素数であれば
-                primes[j++] = i;
+                result[j++] = i;
         }
     }
 
-    private static void sieve()
+    private static void crossOutMultiples()
     {
         int i;
         int j;
@@ -59,7 +59,7 @@ public class PrimeGenerator {
         }
     }
 
-    private static void initializeSieve(int maxValue)
+    private static void initializeArrayOfIntegers(int maxValue)
     {
         // 宣言
         f = new boolean[maxValue + 1];
