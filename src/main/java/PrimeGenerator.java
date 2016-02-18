@@ -7,7 +7,7 @@
  * 全て削除する。一番大きい数の平方根を超えるまで、この作業を繰り返す。
  *
  * @author k2works
- * @version 0.4.0
+ * @version 0.4.1
  */
 public class PrimeGenerator {
     private static boolean[] isCrossed;
@@ -69,22 +69,18 @@ public class PrimeGenerator {
 
     private static void putUncrossedIntegersIntoResult()
     {
-        int i;
-        int j;
-
-        // 見つけた素数の個数をカウント
-        int count = 0;
-        for (i = 2; i < isCrossed.length; i++) {
-            if (notCrossed(i))
-                count++; // カウントアップ
-        }
-
-        result = new int[count];
-
-        // 素数の抜き出し
-        for (i = 2, j = 0; i < isCrossed.length; i++) {
+        result = new int[numberOfUncrossedIntegers()];
+        for (int j = 0, i = 2; i < isCrossed.length; i++) {
             if (notCrossed(i)) // 素数であれば
                 result[j++] = i;
         }
+    }
+
+    private static int numberOfUncrossedIntegers() {
+        int count = 0;
+        for (int i = 2; i < isCrossed.length; i++)
+            if (notCrossed(i))
+                count++;
+        return count;
     }
 }
