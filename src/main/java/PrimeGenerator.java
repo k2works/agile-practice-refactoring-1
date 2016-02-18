@@ -7,7 +7,7 @@
  * 全て削除する。一番大きい数の平方根を超えるまで、この作業を繰り返す。
  *
  * @author k2works
- * @version 0.3.0
+ * @version 0.3.1
  */
 public class PrimeGenerator {
     private static boolean[] f;
@@ -22,6 +22,33 @@ public class PrimeGenerator {
             crossOutMultiples();
             putUncrossedIntegersIntoResult();
             return result; // 素数を返す
+        }
+    }
+
+    private static void initializeArrayOfIntegers(int maxValue)
+    {
+        // 宣言
+        f = new boolean[maxValue + 1];
+        int i;
+
+        // 配列を真(true)に初期化
+        for (i = 0; i < f.length; i++)
+            f[i] = true;
+
+        // 周知の非素数を取り除く
+        f[0] = f[1] = false;
+    }
+
+    private static void crossOutMultiples()
+    {
+        int i;
+        int j;
+        for (i = 2; i < Math.sqrt(f.length) + 1; i++) {
+            if (f[i]) // iが除かれていなければ、その倍数を除く
+            {
+                for (j = 2 * i; j < f.length; j += i)
+                    f[j] = false; // 倍数は素数ではない
+            }
         }
     }
 
@@ -44,32 +71,5 @@ public class PrimeGenerator {
             if (f[i]) // 素数であれば
                 result[j++] = i;
         }
-    }
-
-    private static void crossOutMultiples()
-    {
-        int i;
-        int j;
-        for (i = 2; i < Math.sqrt(f.length) + 1; i++) {
-            if (f[i]) // iが除かれていなければ、その倍数を除く
-            {
-                for (j = 2 * i; j < f.length; j += i)
-                    f[j] = false; // 倍数は素数ではない
-            }
-        }
-    }
-
-    private static void initializeArrayOfIntegers(int maxValue)
-    {
-        // 宣言
-        f = new boolean[maxValue + 1];
-        int i;
-
-        // 配列を真(true)に初期化
-        for (i = 0; i < f.length; i++)
-            f[i] = true;
-
-        // 周知の非素数を取り除く
-        f[0] = f[1] = false;
     }
 }
