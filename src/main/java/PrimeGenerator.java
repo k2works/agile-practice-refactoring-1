@@ -7,7 +7,7 @@
  * 全て削除する。一番大きい数の平方根を超えるまで、この作業を繰り返す。
  *
  * @author k2works
- * @version 0.4.1
+ * @version 0.5.0
  */
 public class PrimeGenerator {
     private static boolean[] isCrossed;
@@ -21,18 +21,14 @@ public class PrimeGenerator {
             initializeArrayOfIntegers(maxValue);
             crossOutMultiples();
             putUncrossedIntegersIntoResult();
-            return result; // 素数を返す
+            return result;
         }
     }
 
     private static void initializeArrayOfIntegers(int maxValue)
     {
-        // 宣言
         isCrossed = new boolean[maxValue + 1];
-        int i;
-
-        // 配列を偽(false)に初期化
-        for (i = 2; i < isCrossed.length; i++)
+        for (int i = 2; i < isCrossed.length; i++)
             isCrossed[i] = false;
     }
 
@@ -40,7 +36,7 @@ public class PrimeGenerator {
     {
         int maxPrimeFactor = calcMaxPrimeFactor();
         for (int i = 2; i <= maxPrimeFactor; i++) {
-            if (notCrossed(i)) // iが除かれていなければ、その倍数を除く
+            if (notCrossed(i))
                 crossOutMultiplesOf(i);
         }
     }
@@ -64,14 +60,14 @@ public class PrimeGenerator {
         for (int multiple = 2 * i;
              multiple < isCrossed.length;
              multiple += i)
-            isCrossed[multiple] = true; // 倍数は素数ではない
+            isCrossed[multiple] = true;
     }
 
     private static void putUncrossedIntegersIntoResult()
     {
         result = new int[numberOfUncrossedIntegers()];
         for (int j = 0, i = 2; i < isCrossed.length; i++) {
-            if (notCrossed(i)) // 素数であれば
+            if (notCrossed(i))
                 result[j++] = i;
         }
     }
