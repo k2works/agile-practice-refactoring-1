@@ -7,7 +7,7 @@
  * 全て削除する。一番大きい数の平方根を超えるまで、この作業を繰り返す。
  *
  * @author k2works
- * @version 0.3.4
+ * @version 0.3.5
  */
 public class PrimeGenerator {
     private static boolean[] isCrossed;
@@ -42,11 +42,15 @@ public class PrimeGenerator {
         int j;
         for (i = 2; i < Math.sqrt(isCrossed.length) + 1; i++) {
             if (isCrossed[i] == false) // iが除かれていなければ、その倍数を除く
-            {
-                for (j = 2 * i; j < isCrossed.length; j += i)
-                    isCrossed[j] = true; // 倍数は素数ではない
-            }
+                crossOutMultiplesOf(i);
         }
+    }
+
+    private static void crossOutMultiplesOf(int i) {
+        for (int multiple = 2 * i;
+             multiple < isCrossed.length;
+             multiple += i)
+            isCrossed[multiple] = true; // 倍数は素数ではない
     }
 
     private static void putUncrossedIntegersIntoResult()
