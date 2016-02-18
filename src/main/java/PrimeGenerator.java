@@ -7,7 +7,7 @@
  * 全て削除する。一番大きい数の平方根を超えるまで、この作業を繰り返す。
  *
  * @author k2works
- * @version 0.2.2
+ * @version 0.3.0
  */
 public class PrimeGenerator {
     private static boolean[] f;
