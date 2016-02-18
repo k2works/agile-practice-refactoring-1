@@ -7,10 +7,10 @@
  * 全て削除する。一番大きい数の平方根を超えるまで、この作業を繰り返す。
  *
  * @author k2works
- * @version 0.3.1
+ * @version 0.3.2
  */
 public class PrimeGenerator {
-    private static boolean[] f;
+    private static boolean[] unCrossed;
     private static int[] result;
 
     public static int[] generatePrimes(int maxValue) {
@@ -28,26 +28,26 @@ public class PrimeGenerator {
     private static void initializeArrayOfIntegers(int maxValue)
     {
         // 宣言
-        f = new boolean[maxValue + 1];
+        unCrossed = new boolean[maxValue + 1];
         int i;
 
         // 配列を真(true)に初期化
-        for (i = 0; i < f.length; i++)
-            f[i] = true;
+        for (i = 0; i < unCrossed.length; i++)
+            unCrossed[i] = true;
 
         // 周知の非素数を取り除く
-        f[0] = f[1] = false;
+        unCrossed[0] = unCrossed[1] = false;
     }
 
     private static void crossOutMultiples()
     {
         int i;
         int j;
-        for (i = 2; i < Math.sqrt(f.length) + 1; i++) {
-            if (f[i]) // iが除かれていなければ、その倍数を除く
+        for (i = 2; i < Math.sqrt(unCrossed.length) + 1; i++) {
+            if (unCrossed[i]) // iが除かれていなければ、その倍数を除く
             {
-                for (j = 2 * i; j < f.length; j += i)
-                    f[j] = false; // 倍数は素数ではない
+                for (j = 2 * i; j < unCrossed.length; j += i)
+                    unCrossed[j] = false; // 倍数は素数ではない
             }
         }
     }
@@ -59,16 +59,16 @@ public class PrimeGenerator {
 
         // 見つけた素数の個数をカウント
         int count = 0;
-        for (i = 0; i < f.length; i++) {
-            if (f[i])
+        for (i = 0; i < unCrossed.length; i++) {
+            if (unCrossed[i])
                 count++; // カウントアップ
         }
 
         result = new int[count];
 
         // 素数の抜き出し
-        for (i = 0, j = 0; i < f.length; i++) {
-            if (f[i]) // 素数であれば
+        for (i = 0, j = 0; i < unCrossed.length; i++) {
+            if (unCrossed[i]) // 素数であれば
                 result[j++] = i;
         }
     }
