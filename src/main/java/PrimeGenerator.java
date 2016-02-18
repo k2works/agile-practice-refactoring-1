@@ -7,7 +7,7 @@
  * 全て削除する。一番大きい数の平方根を超えるまで、この作業を繰り返す。
  *
  * @author k2works
- * @version 0.3.3
+ * @version 0.3.4
  */
 public class PrimeGenerator {
     private static boolean[] isCrossed;
@@ -31,12 +31,9 @@ public class PrimeGenerator {
         isCrossed = new boolean[maxValue + 1];
         int i;
 
-        // 配列を真(true)に初期化
+        // 配列を偽(false)に初期化
         for (i = 2; i < isCrossed.length; i++)
             isCrossed[i] = false;
-
-        // 周知の非素数を取り除く
-        isCrossed[0] = isCrossed[1] = true;
     }
 
     private static void crossOutMultiples()
@@ -59,7 +56,7 @@ public class PrimeGenerator {
 
         // 見つけた素数の個数をカウント
         int count = 0;
-        for (i = 0; i < isCrossed.length; i++) {
+        for (i = 2; i < isCrossed.length; i++) {
             if (isCrossed[i] == false)
                 count++; // カウントアップ
         }
@@ -67,7 +64,7 @@ public class PrimeGenerator {
         result = new int[count];
 
         // 素数の抜き出し
-        for (i = 0, j = 0; i < isCrossed.length; i++) {
+        for (i = 2, j = 0; i < isCrossed.length; i++) {
             if (isCrossed[i] == false) // 素数であれば
                 result[j++] = i;
         }
