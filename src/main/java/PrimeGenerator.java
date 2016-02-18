@@ -9,7 +9,7 @@
  * @author k2works
  * @version 0.2.0
  */
-public class GeneratePrimes {
+public class PrimeGenerator {
     private static int s;
     private static boolean[] f;
     private static int[] primes;
