@@ -7,10 +7,9 @@
  * 全て削除する。一番大きい数の平方根を超えるまで、この作業を繰り返す。
  *
  * @author k2works
- * @version 0.2.0
+ * @version 0.2.1
  */
 public class PrimeGenerator {
-    private static int s;
     private static boolean[] f;
     private static int[] primes;
 
@@ -33,7 +32,7 @@ public class PrimeGenerator {
 
         // 見つけた素数の個数をカウント
         int count = 0;
-        for (i = 0; i < s; i++) {
+        for (i = 0; i < f.length; i++) {
             if (f[i])
                 count++; // カウントアップ
         }
@@ -41,7 +40,7 @@ public class PrimeGenerator {
         primes = new int[count];
 
         // 素数の抜き出し
-        for (i = 0, j = 0; i < s; i++) {
+        for (i = 0, j = 0; i < f.length; i++) {
             if (f[i]) // 素数であれば
                 primes[j++] = i;
         }
@@ -51,10 +50,10 @@ public class PrimeGenerator {
     {
         int i;
         int j;
-        for (i = 2; i < Math.sqrt(s) + 1; i++) {
+        for (i = 2; i < Math.sqrt(f.length) + 1; i++) {
             if (f[i]) // iが除かれていなければ、その倍数を除く
             {
-                for (j = 2 * i; j < s; j += i)
+                for (j = 2 * i; j < f.length; j += i)
                     f[j] = false; // 倍数は素数ではない
             }
         }
@@ -63,12 +62,11 @@ public class PrimeGenerator {
     private static void initializeSieve(int maxValue)
     {
         // 宣言
-        s = maxValue + 1; // 配列サイズ
-        f = new boolean[s];
+        f = new boolean[maxValue + 1];
         int i;
 
         // 配列を真(true)に初期化
-        for (i = 0; i < s; i++)
+        for (i = 0; i < f.length; i++)
             f[i] = true;
 
         // 周知の非素数を取り除く
