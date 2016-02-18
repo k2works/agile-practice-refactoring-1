@@ -7,7 +7,7 @@
  * 全て削除する。一番大きい数の平方根を超えるまで、この作業を繰り返す。
  *
  * @author k2works
- * @version 0.3.6
+ * @version 0.3.7
  */
 public class PrimeGenerator {
     private static boolean[] isCrossed;
@@ -38,12 +38,22 @@ public class PrimeGenerator {
 
     private static void crossOutMultiples()
     {
-        int i;
-        int j;
-        for (i = 2; i < Math.sqrt(isCrossed.length) + 1; i++) {
+        int maxPrimeFactor = calcMaxPrimeFactor();
+        for (int i = 2; i <= maxPrimeFactor; i++) {
             if (notCrossed(i)) // iが除かれていなければ、その倍数を除く
                 crossOutMultiplesOf(i);
         }
+    }
+
+    private static int calcMaxPrimeFactor() {
+        // pの倍数をすべて削除する。ただし、pは素数である。したがって、
+        // 削除される倍数はすべて、素因子pと倍因子qを掛けあわせた数
+        // として表現できる。もしpが配列サイズの平方根よりも大きい場合は、
+        // 倍数因子qが１より大きくなることはありえない。したがって、pは
+        // 配列に格納されている数の中で最大の素数因子であり、同時に
+        // 繰り返しの上限であることになる。
+        double maxPrimeFactor = Math.sqrt(isCrossed.length) + 1;
+        return (int) maxPrimeFactor;
     }
 
     private static boolean notCrossed(int i) {
